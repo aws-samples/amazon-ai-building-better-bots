@@ -38,7 +38,8 @@ First, we'll create the Lex bot.  Then, we'll add some Lambda Functions to bring
 
 ## Prerequisites
 Create two IAM roles as described below.  For more information, you can use the instructions provided in the Lex [documentation](http://docs.aws.amazon.com/lex/latest/dg/gs-bp-prep.html).
-1.  `CoffeeBot_app_role` - a Service role so Lex can invoke Lambda on your behalf with this custom inline policy (it's easy to start with Lambda and then swap it out with Lex as shown below)
+
+1.`CoffeeBot_app_role` - a Service role so Lex can invoke Lambda on your behalf with this custom inline policy (it's easy to start with Lambda and then swap it out with Lex as shown below)
 ```json
 {
 	"Version": "2012-10-17",
@@ -52,7 +53,8 @@ Create two IAM roles as described below.  For more information, you can use the 
 			"Resource": "*"
 		}
 	]
-}```
+}
+```
 This role also needs to trust the Amazon Lex service principal (`lex.amazonaws.com`).
 ```json
 {
@@ -66,8 +68,9 @@ This role also needs to trust the Amazon Lex service principal (`lex.amazonaws.c
 			"Action": "sts:AssumeRole"
 		}
 	]
-}```
-1.  `CoffeeBot_lambda_role` - a Lambda Service role so the Lambda fulfillment function can assume the role and write logs (start with this custom inline policy)
+}
+```
+2.`CoffeeBot_lambda_role` - a Lambda Service role so the Lambda fulfillment function can assume the role and write logs (start with this custom inline policy)
 ```json
 {
 	"Version": "2012-10-17",
@@ -84,7 +87,8 @@ This role also needs to trust the Amazon Lex service principal (`lex.amazonaws.c
 			]
 		}
 	]
-}```
+}
+```
 
 ## Lex bot
 #### 1. Create bot
