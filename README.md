@@ -133,10 +133,10 @@ Required | Name            | Slot type | Prompt
 -------- | --------------- | --------- | -------------
 `Yes` | `BeverageType` | `cafeBeverageType` | `What kind of beverage would you like?  For example, mocha, chai, etc.`
 `Yes` | `BeverageSize` | `cafeBeverageSize` | `What size?  small, medium, large?`
- | `Creamer` | `cafeCreamerType` | `What kind of milk or creamer?`
- | `BeverageTemp` | `cafeBeverageTemp` | `Would you like that iced or hot?`
- | `BeverageStrength` | `cafeBeverageStrength` | `Single or double?`
- | `BeverageExtras` | `cafeBeverageExtras` | `extras?`
+ `No` | `Creamer` | `cafeCreamerType` | `What kind of milk or creamer?`
+ `No`| `BeverageTemp` | `cafeBeverageTemp` | `Would you like that iced or hot?`
+ `No`| `BeverageStrength` | `cafeBeverageStrength` | `Single or double?`
+ `No`| `BeverageExtras` | `cafeBeverageExtras` | `extras?`
 
 #### 4. Test
 Build the app and test some of the Utterances in the Test Bot dialog at the bottom right of the Lex Console.  For example, if you say `May I have a chai?`, does Lex correctly map `chai` to the `BeverageType` slot?
