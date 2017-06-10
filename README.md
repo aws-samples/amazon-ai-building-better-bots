@@ -73,7 +73,7 @@ May I have a {BeverageSize} {Creamer} {BeverageStrength} {BeverageType}
 Can I get a {BeverageSize} {BeverageTemp} {Creamer} {BeverageStrength} {BeverageType}
 Let me get a {BeverageSize} {Creamer} {BeverageType}
 ```
-1. Slots
+5. Slots
 
 Required | Name            | Slot type | Prompt
 -------- | --------------- | --------- | -------------
