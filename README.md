@@ -89,13 +89,13 @@ Build the app and test some of the Utterances in the Test Bot dialog at the bott
 
 ## Lambda Function
 1. Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 4.3 function
-  - You can get the function source [here](https://github.com/awslabs/amz-ai-building-better-bots/blob/master/src/index.js)
-  - (No need to set up a trigger; you can accept default values for most of the configuration)
-  - Choose an IAM role that includes the `AWSLambdaBasicExecutionRole` Managed Policy.  If no such role exists, you can create a new IAM Role using one of these approaches:
-    - Choose "Create new role from template(s)", provide a role name, and choose `Basic Lambda permissions` from the "Policy templates" dropdown
-    - Choose "Create a Custom role", which should open up a new tab where an IAM role is shown; review the policy document and click "Allow"
+    - You can get the function source [here](https://github.com/awslabs/amz-ai-building-better-bots/blob/master/src/index.js)
+    - (No need to set up a trigger; you can accept default values for most of the configuration)
+    - Choose an IAM role that includes the `AWSLambdaBasicExecutionRole` Managed Policy.  If no such role exists, you can create a new IAM Role using one of these approaches:
+        - Choose "Create new role from template(s)", provide a role name, and choose `Basic Lambda permissions` from the "Policy templates" dropdown
+        - Choose "Create a Custom role", which should open up a new tab where an IAM role is shown; review the policy document and click "Allow"
 1. Configure the Test event and test to confirm the function works as expected (see `cafeOrderCoffee_test.json`)
-      - you can get the event source [here](https://github.com/awslabs/amz-ai-building-better-bots/blob/master/test/cafeOrderCoffee_test.json)
+    - you can get the event source [here](https://github.com/awslabs/amz-ai-building-better-bots/blob/master/test/cafeOrderCoffee_test.json)
 1. You'll notice that the function checks the bot name it receives (``if (event.bot.name !== 'CoffeeBot')``); remember to change this value in the function and in the test event to match the name you used for your bot
 
 ## Test the bot
