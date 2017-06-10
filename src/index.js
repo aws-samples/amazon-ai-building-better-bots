@@ -144,7 +144,7 @@ function dispatch(intentRequest, callback) {
 	const name = intentRequest.currentIntent.name;
 
 	// dispatch to the intent handlers
-	if (name === 'cafeOrderBeverageIntent') {
+	if (name.startsWith('cafeOrderBeverageIntent')) {
 		return orderBeverage(intentRequest, callback);
 	}
 	throw new Error(`Intent with name ${name} not supported`);
@@ -162,7 +162,7 @@ exports.handler = (event, context, callback) => {
 		console.log(`event.bot.name=${event.bot.name}`);
 
 		// fail if this function is for a different bot
-		if (event.bot.name !== 'CoffeeBot') {
+		if (! event.bot.name.startsWith('CoffeeBot') {
 		     callback('Invalid Bot Name');
 		}
 		dispatch(event, (response) => callback(null, response));
