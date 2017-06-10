@@ -39,14 +39,14 @@ First, we'll create the Lex bot.  Then, we'll add some Lambda Functions to bring
 ## Lex bot
 #### 1. Create bot
 1. From the Amazon Lex console, create a Custom bot with these settings (you can see these in the "Settings" tab later)
-  - Bot name:  `CoffeeBot`
-  - Output voice:  `Salli`
-  - Session timeout:  `10 min`
-  - IAM role:  (accept the default) `AWSServiceRoleForLexBots`
+    - Bot name:  `CoffeeBot`
+    - Output voice:  `Salli`
+    - Session timeout:  `10 min`
+    - IAM role:  (accept the default) `AWSServiceRoleForLexBots`
 1. Review the Error handling settings
-  - Prompts:  (one prompt)  `Sorry, can you please repeat that?`
-  - Maximum number of retries:  `3`
-  - Hang-up phrase:  (one phrase) `Sorry, I could not understand.  Goodbye.`
+    - Prompts:  (one prompt)  `Sorry, can you please repeat that?`
+    - Maximum number of retries:  `3`
+    - Hang-up phrase:  (one phrase) `Sorry, I could not understand.  Goodbye.`
 
 #### 2. Create Slot types
 Add the following Slot types (each value should be a separate entry) so they show up on the left (remember to "Save slot type" as you go along).
@@ -101,7 +101,7 @@ Build the app and test some of the Utterances in the Test Bot dialog at the bott
 ## Test the bot
 1. From the Lex Console, select the `CoffeeBot` bot and choose `Latest` from the version drop down to make changes
 1. Modify the `cafeOrderBeverageIntent` Intent to associate it with the new `cafeOrderCoffee` Lambda function (select "AWS Lambda function" in the "Fulfillment" area); remember to click "Save"
-  -  The Lambda function overrides the "Goodbye message" (so we don't configure it here)
+    -  The Lambda function overrides the "Goodbye message" (so we don't configure it here)
 1. Build the app
 1. Test using Lex Console; do you see any responses when you ask `May I have a mocha?`
 
