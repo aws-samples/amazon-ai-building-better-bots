@@ -162,7 +162,7 @@ exports.handler = (event, context, callback) => {
 		console.log(`event.bot.name=${event.bot.name}`);
 
 		// fail if this function is for a different bot
-		if (! event.bot.name.startsWith('CoffeeBot') {
+		if (! event.bot.name.startsWith('CoffeeBot')) {
 		     callback('Invalid Bot Name');
 		}
 		dispatch(event, (response) => callback(null, response));
