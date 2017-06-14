@@ -106,6 +106,18 @@ function buildResponseCard(title, subTitle, options) {
     };
 }
 
+function buildResponseOptions(optionsArray = []){
+    var responseOptions = [];
+    for(var i=0; i<optionsArray.length; i++){
+        var temp = {
+            "text": optionsArray[i],
+            "value": optionsArray[i]
+        }
+        responseOptions.push(temp);
+    }
+    return responseOptions;
+}
+
 function keyExists(key, search) {
     if (!search || (search.constructor !== Array && search.constructor !== Object)) {
         return false;
@@ -140,17 +152,9 @@ function orderBeverage(intentRequest, callback) {
 
         
         if(! (beverageType && (keyExists(beverageType, todayMenuBeverageType)))){
-            var menuItemKeys = Object.keys(todayMenuBeverageType);
-            var menuItem = [];
-            for(var i=0; i<menuItemKeys.length; i++){
-                var temp = {
-                    "text": menuItemKeys[i],
-                    "value": menuItemKeys[i]
-                }
-                menuItem.push(temp);
-            }
+            var menuItem = buildResponseOptions(Object.keys(todayMenuBeverageType));
             
-			callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageType', 
+            callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageType', 
 			    buildMessage('Sorry, but we have following menu today. What kind of beverage would you like?'), 
 			    buildResponseCard("Menu", "Today's Menu", menuItem)));
 		}
@@ -158,19 +162,11 @@ function orderBeverage(intentRequest, callback) {
 		// let's assume we only accept short, tall, grande, venti, small, medium, and large for now
 		if (!(beverageSize && beverageSize.match(/short|tall|grande|venti|small|medium|large/) && keyExists(beverageSize, todayMenuBeverageType[beverageType].size))) {
 		    if(beverageSize){
-		        var sizeOfItem = [];
-		        var avilableSizes = todayMenuBeverageType[beverageType].size;
-		        for(var i=0; i<avilableSizes.length; i++){
-                    var temp = {
-                        "text": avilableSizes[i],
-                        "value": avilableSizes[i]
-                    }
-                    sizeOfItem.push(temp);
-                }
+		        var sizeOfItem = buildResponseOptions(todayMenuBeverageType[beverageType].size);
             
 			    callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageSize',
 			        buildMessage('Sorry, but we don\'t have this size. ?'),
-			        buildResponseCard(`${beverageType} Size`, "Today's avilable size's", sizeOfItem)
+			        buildResponseCard(`Today available  ${beverageType} size`, "avilable size's", sizeOfItem)
 			    ));
 		    }else{
 		        callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageSize'));
