@@ -139,7 +139,7 @@ function orderBeverage(intentRequest, callback) {
 		const beverageTemp = (slots.BeverageTemp ? slots.BeverageTemp : null);
 
         
-        if (! (beverageType && (keyExists(beverageType, todayMenuBeverageType)))) {
+        if(! (beverageType && (keyExists(beverageType, todayMenuBeverageType)))){
             var menuItemKeys = Object.keys(todayMenuBeverageType);
             var menuItem = [];
             for(var i=0; i<menuItemKeys.length; i++){
@@ -156,8 +156,25 @@ function orderBeverage(intentRequest, callback) {
 		}
 
 		// let's assume we only accept short, tall, grande, venti, small, medium, and large for now
-		if (!(beverageSize && beverageSize.match(/short|tall|grande|venti|small|medium|large/))) {
-			callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageSize'));
+		if (!(beverageSize && beverageSize.match(/short|tall|grande|venti|small|medium|large/) && keyExists(beverageSize, todayMenuBeverageType[beverageType].size))) {
+		    if(beverageSize){
+		        var sizeOfItem = [];
+		        var avilableSizes = todayMenuBeverageType[beverageType].size;
+		        for(var i=0; i<avilableSizes.length; i++){
+                    var temp = {
+                        "text": avilableSizes[i],
+                        "value": avilableSizes[i]
+                    }
+                    sizeOfItem.push(temp);
+                }
+            
+			    callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageSize',
+			        buildMessage('Sorry, but we don\'t have this size. ?'),
+			        buildResponseCard(`${beverageType} Size`, "Today's avilable size's", sizeOfItem)
+			    ));
+		    }else{
+		        callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageSize'));
+		    }
 		}
 
 		// let's say we need to know temperature for mochas
