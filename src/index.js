@@ -1,5 +1,8 @@
 'use strict';
-
+const todayMenuBeverageType = {
+        'mocha':{'size': ['short', 'small', 'medium']}, 
+        'chai':{'size': ['short']}
+};
 /*
 	Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 	Licensed under the Amazon Software License (the "License"). You may not use this file except
@@ -77,10 +80,42 @@ function delegate(sessionAttributes, slots) {
 
 // build a message for Lex responses
 function buildMessage(messageContent) {
-	return {
+    return {
 		contentType: 'PlainText',
-		content: messageContent
-	};
+		content: messageContent,
+    };
+}
+
+// Build a responseCard with a title, subtitle, and an optional set of options which should be displayed as buttons.
+function buildResponseCard(title, subTitle, options) {
+    let buttons = null;
+    if (options !== null) {
+        buttons = [];
+        for (let i = 0; i < Math.min(5, options.length); i++) {
+            buttons.push(options[i]);
+        }
+    }
+    return {
+        contentType: 'application/vnd.amazonaws.card.generic',
+        version: 1,
+        genericAttachments: [{
+            title,
+            subTitle,
+            buttons,
+        }],
+    };
+}
+
+function keyExists(key, search) {
+    if (!search || (search.constructor !== Array && search.constructor !== Object)) {
+        return false;
+    }
+    for (var i = 0; i < search.length; i++) {
+        if (search[i] === key) {
+            return true;
+        }
+    }
+    return key in search;
 }
 
 // --------------- Functions that control the skill's behavior -----------------------
@@ -103,22 +138,31 @@ function orderBeverage(intentRequest, callback) {
 		const beverageSize = (slots.BeverageSize ? slots.BeverageSize : null);
 		const beverageTemp = (slots.BeverageTemp ? slots.BeverageTemp : null);
 
-		if (! (beverageType && (beverageType === 'mocha'))) {
-
-			callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name,
-				slots, 'BeverageType', buildMessage('Sorry, but we can only make a mocha today.  What kind of beverage would you like?')));
+        
+        if (! (beverageType && (keyExists(beverageType, todayMenuBeverageType)))) {
+            var menuItemKeys = Object.keys(todayMenuBeverageType);
+            var menuItem = [];
+            for(var i=0; i<menuItemKeys.length; i++){
+                var temp = {
+                    "text": menuItemKeys[i],
+                    "value": menuItemKeys[i]
+                }
+                menuItem.push(temp);
+            }
+            
+			callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageType', 
+			    buildMessage('Sorry, but we have following menu today. What kind of beverage would you like?'), 
+			    buildResponseCard("Menu", "Today's Menu", menuItem)));
 		}
 
 		// let's assume we only accept short, tall, grande, venti, small, medium, and large for now
-		if (! (beverageSize && beverageSize.match(/short|tall|grande|venti|small|medium|large/))) {
-			callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name,
-				slots, 'BeverageSize'));
+		if (!(beverageSize && beverageSize.match(/short|tall|grande|venti|small|medium|large/))) {
+			callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageSize'));
 		}
 
 		// let's say we need to know temperature for mochas
-		if (! (beverageTemp && beverageTemp.match(/kids|hot|iced/))) {
-			callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name,
-				slots, 'BeverageTemp'));
+		if (!(beverageTemp && beverageTemp.match(/kids|hot|iced/))) {
+			callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageTemp'));
 		}
 
 		// if we've come this far, then we simply defer to Lex
@@ -128,7 +172,7 @@ function orderBeverage(intentRequest, callback) {
 
 	callback(close(outputSessionAttributes, 'Fulfilled', {
 		contentType: 'PlainText',
-		content: `Great!  Your mocha will be available for pickup soon.  Thanks for using CoffeeBot!`
+		content: `Great!  Your ${intentRequest.currentIntent.slots.BeverageType} will be available for pickup soon.  Thanks for using CoffeeBot!`
 	}));
 }
 
@@ -162,7 +206,7 @@ exports.handler = (event, context, callback) => {
 		console.log(`event.bot.name=${event.bot.name}`);
 
 		// fail if this function is for a different bot
-		if (! event.bot.name.startsWith('CoffeeBot')) {
+		if(! event.bot.name.startsWith('CoffeeBot')) {
 		     callback('Invalid Bot Name');
 		}
 		dispatch(event, (response) => callback(null, response));
