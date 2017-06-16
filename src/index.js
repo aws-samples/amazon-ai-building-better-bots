@@ -106,7 +106,7 @@ function buildResponseCard(title, subTitle, options) {
     };
 }
 
-function buildResponseOptions(optionsArray = []){
+function buildResponseOptions(optionsArray = Array){
     var responseOptions = [];
     for(var i=0; i<optionsArray.length; i++){
         var temp = {
