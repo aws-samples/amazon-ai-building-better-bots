@@ -88,7 +88,7 @@ Required | Name            | Slot type | Prompt
 Build the app and test some of the Utterances in the Test Bot dialog at the bottom right of the Lex Console.  For example, if you say `May I have a chai?`, does Lex correctly map `chai` to the `BeverageType` slot?
 
 ## Lambda Function
-1. Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 4.3 function
+1. Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 6.10 function
     - You can get the function source [here](https://github.com/awslabs/amz-ai-building-better-bots/blob/master/src/index.js)
     - (No need to set up a trigger; you can accept default values for most of the configuration)
     - Choose an IAM role that includes the `AWSLambdaBasicExecutionRole` Managed Policy.  If no such role exists, you can create a new IAM Role using one of these approaches:
