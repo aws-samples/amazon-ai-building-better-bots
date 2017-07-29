@@ -34,46 +34,52 @@ You'll need the following in addition to your AWS account:
 	- A USB cable for USB debugging ([more info for Amazon Fire tablets](https://developer.amazon.com/public/solutions/devices/fire-tablets/app-development/setting-up-your-development-environment-for-fire-tablets))
 
 
-First, we'll create the Lex bot.  Then, we'll add some Lambda Functions to bring it to life.  Finally, we'll put it all together with Mobile Hub and the Lex Android SDK.
+First, we'll create the Amazon Lex bot.  Then, we'll add some Lambda Functions to bring it to life.  Finally, we'll put it all together with Mobile Hub and the Lex Android SDK.
 
-## Lex bot
+## Amazon Lex bot
 #### 1. Create bot
 1. From the Amazon Lex console, create a Custom bot with these settings (you can see these in the "Settings" tab later)
     - Bot name:  `CoffeeBot`
+		- To work independently in a shared environment, use your initials in the name (e.g., `CoffeeBotXXX`)
     - Output voice:  `Salli`
-    - Session timeout:  `10 min`
+    - Session timeout:  `5 min`
     - IAM role:  (accept the default) `AWSServiceRoleForLexBots`
+	- COPPA:  (our bot is not directed at children) `No`
 1. Review the Error handling settings
-    - Prompts:  (one prompt)  `Sorry, can you please repeat that?`
-    - Maximum number of retries:  `3`
+    - Prompts:  (one prompt)  `Sorry, but I didn't understand that.  Would you try again, please?`
+    - Maximum number of retries:  `2`
     - Hang-up phrase:  (one phrase) `Sorry, I could not understand.  Goodbye.`
 
-#### 2. Create Slot types
-Add the following Slot types (each value should be a separate entry) so they show up on the left (remember to "Save slot type" as you go along).
+#### 2. Create Order Beverage Intent
+From the left, add a new Intent called `cafeOrderBeverageIntent` with the following settings and click "Save Intent" to save the Intent.  
+To work independently in a shared environment, use your initials in the Intent name (e.g., `cafeOrderBeverageIntentXXX`).
 
-Slot type name | Description | Values
+1. Lambda initialization and validation (leave unchecked)
+1. Fulfillment:  choose "Return parameters to client" for now
+1. Confirmation prompt:  `You'd like me to order a {BeverageSize} {BeverageType}.  Is that right?` to confirm and `Okay.  Nothing to order this time.  See you next time!` to cancel.
+1. Sample Utterances:  add these to the list of sample utterances so the bot recognizes similar phrases (each entry on a separate line)
+```
+I would like a {BeverageSize} {BeverageType}
+Can I get a {BeverageType}
+May I have a {BeverageSize} {Creamer} {BeverageType}
+Can I get a {BeverageSize} {BeverageTemp} {Creamer} {BeverageType}
+Let me get a {BeverageSize} {Creamer} {BeverageType}
+```
+
+#### 3. Create Slot types
+Add the following Slot types (each value should be a separate entry); remember to "Save slot type" as you go along.
+To work independently in a shared environment, use your initials in the names (e.g., `cafeBeverageTypeXXX`).  
+Note:  Although they are saved with the AWS Account, Slot Types will only show up in the list when they are associated in the next step.
+
+Slot type name | Description | Values (each entry on a separate line)
 -------------- | ----------- | --------------------
 `cafeBeverageType` | *Slot types are shared at the account level so text would help other developers determine if they can reuse this Slot type.*| `coffee`; `cappuccino`; `latte`; `mocha`; `chai`; `espresso`; `smoothie`
 `cafeBeverageSize` | | `kids`; `small`; `medium`; `large`; `extra large`; `six ounce`; `eight ounce`; `twelve ounce`; `sixteen ounce`; `twenty ounce`
 `cafeCreamerType` | | `two percent`; `skim milk`; `soy`; `almond`; `whole`; `skim`; `half and half`
 `cafeBeverageTemp` | | `kids`; `hot`; `iced`
-`cafeBeverageStrength` | | `single`; `double`; `triple`; `quad`; `quadruple`
-`cafeBeverageExtras` | | `half sweet`; `semi sweet`
 
-#### 3. Create Order Beverage Intent
-From the left, add a new Intent called `cafeOrderBeverageIntent` with the following settings and click "Save" to save the Intent
-1. Options (leave options unchecked)
-1. Fulfillment:  choose "Return parameters to client" for now
-1. Confirmation prompt:  `You'd like me to order a {BeverageSize} {BeverageType}.  Is that right?` to confirm and `Okay.  Nothing to order this time.  See you next time!` to cancel.
-1. Sample Utterances:  add these to the list of sample utterances so the bot recognizes similar phrases
-```
-I would like a {BeverageSize} {BeverageType}
-Can I get a {BeverageType}
-May I have a {BeverageSize} {Creamer} {BeverageStrength} {BeverageType}
-Can I get a {BeverageSize} {BeverageTemp} {Creamer} {BeverageStrength} {BeverageType}
-Let me get a {BeverageSize} {Creamer} {BeverageType}
-```
-5. Slots
+#### 4. Add Slots to the Intent
+Add the following entries to the list of Slots, choosing the Slot Types created above.  Click "Save Intent".
 
 Required | Name            | Slot type | Prompt
 -------- | --------------- | --------- | -------------
@@ -81,14 +87,13 @@ Required | Name            | Slot type | Prompt
 `Yes` | `BeverageSize` | `cafeBeverageSize` | `What size?  small, medium, large?`
  &nbsp;| `Creamer` | `cafeCreamerType` | `What kind of milk or creamer?`
  &nbsp;| `BeverageTemp` | `cafeBeverageTemp` | `Would you like that iced or hot?`
- &nbsp;| `BeverageStrength` | `cafeBeverageStrength` | `Single or double?`
- &nbsp;| `BeverageExtras` | `cafeBeverageExtras` | `extras?`
 
-#### 4. Test
-Build the app and test some of the Utterances in the Test Bot dialog at the bottom right of the Lex Console.  For example, if you say `May I have a chai?`, does Lex correctly map `chai` to the `BeverageType` slot?
+#### 5. Test
+Build the app and test some of the Utterances in the Test Bot dialog at the bottom right of the Amazon Lex Console.  For example, if you say `May I have a chai?`, does Lex correctly map `chai` to the `BeverageType` slot?
 
 ## Lambda Function
 1. Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 6.10 function
+	- To work independently in a shared environment, use your initials in the function name (e.g., `cafeOrderCoffeeXXX`)
     - You can get the function source [here](https://github.com/awslabs/amz-ai-building-better-bots/blob/master/src/index.js)
     - (No need to set up a trigger; you can accept default values for most of the configuration)
     - Choose an IAM role that includes the `AWSLambdaBasicExecutionRole` Managed Policy.  If no such role exists, you can create a new IAM Role using one of these approaches:
@@ -100,10 +105,14 @@ Build the app and test some of the Utterances in the Test Bot dialog at the bott
 
 ## Test the bot
 1. From the Lex Console, select the `CoffeeBot` bot and choose `Latest` from the version drop down to make changes
-1. Modify the `cafeOrderBeverageIntent` Intent to associate it with the new `cafeOrderCoffee` Lambda function (select "AWS Lambda function" in the "Fulfillment" area); remember to click "Save"
-    -  The Lambda function overrides the "Goodbye message" (so we don't configure it here)
-1. Build the app
-1. Test using Lex Console; do you see any responses when you ask `May I have a mocha?`
+1. Modify the `cafeOrderBeverageIntent` Intent
+	-  Add `Thanks for choosing PressoBot!` as the "Goodbye message"
+	- Associate it with the new `cafeOrderCoffee` Lambda function (select "Lambda function" in the "Lambda initialization and validation" area)
+		-  When prompted, allow Amazon Lex to call your new function
+	- Associate it with the new `cafeOrderCoffee` Lambda function for (select "Lambda function" in the "Fulfillment" area); remember to click "Save Intent"
+    	-  The Lambda function overrides the "Goodbye message"
+1. Build the bot
+1. Test using the Amazon Lex Console; do you see any responses when you ask `May I have a mocha?`
 
 ## Android App
 1. From the Mobile Hub console, create a new project called `CoffeeBot`.
