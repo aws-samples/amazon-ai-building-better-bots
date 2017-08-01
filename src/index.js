@@ -156,7 +156,7 @@ function orderBeverage(intentRequest, callback) {
             var menuItem = buildResponseOptions(Object.keys(todayMenuBeverageType));
             
             callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageType', 
-			    buildMessage('Sorry, but we have following menu today. What kind of beverage would you like?'), 
+			    buildMessage('Sorry, but we can only do a mocha or a chai. What kind of beverage would you like?'), 
 			    buildResponseCard("Menu", "Today's Menu", menuItem)));
 		}
 
