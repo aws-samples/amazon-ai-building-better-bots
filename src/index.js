@@ -1,8 +1,3 @@
-'use strict';
-const todayMenuBeverageType = {
-        'mocha':{'size': ['short', 'small', 'medium']}, 
-        'chai':{'size': ['short']}
-};
 /*
 	Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 	Licensed under the Amazon Software License (the "License"). You may not use this file except
@@ -23,6 +18,12 @@ const todayMenuBeverageType = {
  * This example is intentionally simplistic for illustration; please consider using
  * the Amazon Lex blueprints for your projects.
  */
+'use strict';
+const todayMenuBeverageType = {
+        'mocha':{'size': ['short', 'small', 'medium']}, 
+        'chai':{'size': ['small', 'short']}
+};
+
 // --------------- Helpers to build responses which match the structure of the necessary dialog actions -----------------------
 
 function elicitSlot(sessionAttributes, intentName, slots, slotToElicit, message, responseCard) {
@@ -165,8 +166,8 @@ function orderBeverage(intentRequest, callback) {
 		        var sizeOfItem = buildResponseOptions(todayMenuBeverageType[beverageType].size);
             
 			    callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageSize',
-			        buildMessage('Sorry, but we don\'t have this size. ?'),
-			        buildResponseCard(`Today available  ${beverageType} size`, "avilable size's", sizeOfItem)
+			        buildMessage('Sorry, but we don\'t have this size; consider a small.  What size?'),
+			        buildResponseCard(`${beverageType}`, "available sizes", sizeOfItem)
 			    ));
 		    }else{
 		        callback(elicitSlot(outputSessionAttributes, intentRequest.currentIntent.name, slots, 'BeverageSize'));
