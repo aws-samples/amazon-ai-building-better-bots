@@ -20,7 +20,7 @@
  */
 'use strict';
 const todayMenuBeverageType = {
-        'mocha':{'size': ['short', 'small', 'medium']}, 
+        'mocha':{'size': ['short', 'small', 'medium', 'large']}, 
         'chai':{'size': ['small', 'short']}
 };
 
