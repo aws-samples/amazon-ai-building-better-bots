@@ -1,33 +1,24 @@
-# amz-ai-building-better-bots
-Code samples related to [Building Better Bots](https://aws.amazon.com/blogs/ai/building-better-bots-part-2/) published on the AI Blog
+# amazon-ai-building-better-bots
+Code samples related to [Building Better Bots](https://aws.amazon.com/blogs/ai/building-better-bots-part-2/) published on the AWS ML Blog
 
 # CoffeeBot
 
 CoffeeBot is a transactional chat bot that can help one order a mocha (relies on AWS Mobile Hub and Android).
 
 Consider this conversation:
-> User:  May I have a mocha?
-
-> CoffeeBot:  What size?  small, medium, large?
-
-> User:  small
-
-> CoffeeBot:  Would you like that iced or hot?
-
-> User:  hot
-
-> CoffeeBot:  You'd like me to order a small mocha.  Is that right?
-
-> User:  Make it a large mocha
-
-> CoffeeBot:  You'd like me to order a large mocha.  Is that right?
-
-> User:  yeah
-
+> User:  May I have a mocha? <br/>
+> CoffeeBot:  What size?  small, medium, large? <br/>
+> User:  small <br/>
+> CoffeeBot:  Would you like that iced or hot? <br/>
+> User:  hot <br/>
+> CoffeeBot:  You'd like me to order a small mocha.  Is that right? <br/>
+> User:  Make it a large mocha <br/>
+> CoffeeBot:  You'd like me to order a large mocha.  Is that right? <br/>
+> User:  yeah <br/>
 > CoffeeBot:  Great! Your mocha will be available for pickup soon. Thanks for using CoffeeBot!
 
 Let's build this voice bot, an Android App that talks to you using Amazon Polly and Amazon Lex.
-You'll need the following in addition to your AWS account:
+You can use the AWS Console for your account to start testing the bot, but you can also build a mobile app using:
 - Android development environment ([download](https://developer.android.com/sdk))
 - To test voice (you can use the simulator for text)
 	- An Android device
@@ -94,23 +85,21 @@ Build the app and test some of the Utterances in the Test Bot dialog at the bott
 ## Lambda Function
 1. Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 6.10 function
 	- To work independently in a shared environment, use your initials in the function name (e.g., `cafeOrderCoffeeXXX`)
-    - You can get the function source [here](https://github.com/awslabs/amz-ai-building-better-bots/blob/master/src/index.js)
+    - You can get the function source [here](https://github.com/aws-samples/amazon-ai-building-better-bots/blob/master/src/index.js)
     - (No need to set up a trigger; you can accept default values for most of the configuration)
     - Choose an IAM role that includes the `AWSLambdaBasicExecutionRole` Managed Policy.  If no such role exists, you can create a new IAM Role using one of these approaches:
-        - Choose "Create new role from template(s)", provide a role name, and choose `Basic Lambda permissions` from the "Policy templates" dropdown
+        - Choose "Create new role from template(s)", provide a role name, and choose `Simple Microservice permissions` from the "Policy templates" dropdown
         - Choose "Create a Custom role", which should open up a new tab where an IAM role is shown; review the policy document and click "Allow"
 1. Configure the Test event and test to confirm the function works as expected (see `cafeOrderCoffee_test.json`)
-    - you can get the event source [here](https://github.com/awslabs/amz-ai-building-better-bots/blob/master/test/cafeOrderCoffee_test.json)
+    - you can get the event source [here](https://github.com/aws-samples/amazon-ai-building-better-bots/blob/master/test/cafeOrderCoffee_test.json)
 1. You'll notice that the function checks the bot name it receives (``if (event.bot.name !== 'CoffeeBot')``); remember to change this value in the function and in the test event to match the name you used for your bot
 
 ## Test the bot
 1. From the Lex Console, select the `CoffeeBot` bot and choose `Latest` from the version drop down to make changes
 1. Modify the `cafeOrderBeverageIntent` Intent
-	-  Add `Thanks for choosing PressoBot!` as the "Goodbye message"
 	- Associate it with the new `cafeOrderCoffee` Lambda function (select "Lambda function" in the "Lambda initialization and validation" area)
 		-  When prompted, allow Amazon Lex to call your new function
 	- Associate it with the new `cafeOrderCoffee` Lambda function for (select "Lambda function" in the "Fulfillment" area); remember to click "Save Intent"
-    	-  The Lambda function overrides the "Goodbye message"
 1. Build the bot
 1. Test using the Amazon Lex Console; do you see any responses when you ask `May I have a mocha?`
 
