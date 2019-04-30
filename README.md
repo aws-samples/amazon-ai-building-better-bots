@@ -64,7 +64,7 @@ Note:  Although they are saved with the AWS Account, Slot Types will only show u
 
 Slot type name | Description | Values (each entry on a separate line)
 -------------- | ----------- | --------------------
-`cafeBeverageType` | *Slot types are shared at the account level so text would help other developers determine if they can reuse this Slot type.*| `coffee`; `cappuccino`; `latte`; `mocha`; `chai`; `espresso`; `smoothie`
+`cafeBeverageType` | *Slot types are shared at the account level so text would help other developers determine if they can reuse this Slot type.*| `coffee`; `cappuccino`; `latte`; `mocha`; `chai`; `espresso`; `smoothie` <br/><br/> ** each entry on a separate line*
 `cafeBeverageSize` | | `kids`; `small`; `medium`; `large`; `extra large`; `six ounce`; `eight ounce`; `twelve ounce`; `sixteen ounce`; `twenty ounce`
 `cafeCreamerType` | | `two percent`; `skim milk`; `soy`; `almond`; `whole`; `skim`; `half and half`
 `cafeBeverageTemp` | | `kids`; `hot`; `iced`
@@ -83,7 +83,7 @@ Required | Name            | Slot type | Prompt
 Build the app and test some of the Utterances in the Test Bot dialog at the bottom right of the Amazon Lex Console.  For example, if you say `May I have a chai?`, does Lex correctly map `chai` to the `BeverageType` slot?
 
 ## Lambda Function
-1. Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 6.10 function
+1. Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 8.10 function
 	- To work independently in a shared environment, use your initials in the function name (e.g., `cafeOrderCoffeeXXX`)
     - You can get the function source [here](https://github.com/aws-samples/amazon-ai-building-better-bots/blob/master/src/index.js)
     - (No need to set up a trigger; you can accept default values for most of the configuration)
@@ -108,3 +108,6 @@ Build the app and test some of the Utterances in the Test Bot dialog at the bott
 1. Add the "Conversational Bots" feature to the project.  When prompted, import `CoffeeBot`.  Mobile Hub takes care of a number of important details behind the scenes.  A new Amazon Cognito Federated Identity Pool is created for this new app along with roles so that the users can interact with Lex (using voice and text).
 1. Source code for the new app is immediately available for download.
 1. Follow the instructions in the `READ_ME/index.html` file to setup, compile, and run the app.
+
+## AWS Amplify
+When you're ready, try out [AWS Amplify](https://aws-amplify.github.io/docs/js/interactions) for bringing your chatbot to a mobile or web environment.
