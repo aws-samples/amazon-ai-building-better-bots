@@ -1,7 +1,7 @@
 # amazon-ai-building-better-bots
 Code samples related to [Building Better Bots](https://aws.amazon.com/blogs/ai/building-better-bots-part-2/) published on the AWS ML Blog
 
-# CoffeeBot
+# CoffeeBot Chat Bot
 
 CoffeeBot is a transactional chat bot that can help you order a coffee.
 
@@ -19,19 +19,23 @@ Consider this conversation:
 
 ## Building an Amazon Lex chat bot
 
-### 1. Create bot
+### 1. Create the bot
 
-1. From the Amazon Lex console, create a Custom bot with these settings (you can see these in the "Settings" tab later)
+From within the AWS console, navigate to the `Amazon Lex` service console, and click `Create` and then select `Custom bot` to create a new bot.  Enter the following settings for your bot:
 
-- Bot name:  `CoffeeBot`
-- To work independently in an AWS account you are sharing with others, append your initials to the name to make it unique (e.g., `CoffeeBotXXX`)
-- Output voice:  Choose any voice
-- Session timeout:  `5 min`
-- Sentiment Analysis: (accept the default) `No`
-- IAM role:  (accept the default) `AWSServiceRoleForLexBots`
-- COPPA:  (our bot is not directed at children) `No`
+Setting | Value
+------- | -----
+Bot name |  `CoffeeBot`
+Output voice |  Choose any voice
+Session timeout |  `5 min`
+Sentiment Analysis | `No`
+IAM role |  `AWSServiceRoleForLexBots`
+COPPA |  `No`
 
-### 2. Create Order Beverage Intent
+Note: If you are sharing an AWS account with others, append your initials to the bot name to make it unique (e.g., `CoffeeBotXXX`)
+
+### 2. Create an intent
+
 Using the left-hand menu under 'Intents' click the `+` button to add a new Intent called `cafeOrderBeverageIntent`, click 'Add' to save the Intent.  Once the Intent is created, add the below list of 'utterances' to your newly created Intent by placing them one-at-a-time into the 'Sample utterances' entry box and clicking `+` or pressing 'Enter' to save each.  
 Note: If you are working in a shared AWS account with others, append your initials to the Intent name so each is unique (e.g., `cafeOrderBeverageIntentXXX`).
 
@@ -44,7 +48,8 @@ Can I get a {BeverageSize} {BeverageTemp} {Creamer} {BeverageType} |
 Let me get a {BeverageSize} {Creamer} {BeverageType} |
 
 
-### 3. Create Slot types
+### 3. Create slot types
+
 Using the left-hand menu under 'Slot types' click the `+` button to add a new slot type.  Select 'Create slot type' in the popup window to create a custom slot type.  Enter the 'Slot type name' and then add each value seperately from the 'Values' column of the table below.  To add each value to your slot type, click the `+` button next the the value entry box or press 'enter'.  When you have entered all the values for the slot type you are working on, click the `Add slot to intent` button.  You should have created 4 slot types in total.
 
 Note:  Although they are saved with the AWS Account, Slot Types will not show up in the list until they are associated in the next step.
@@ -57,7 +62,7 @@ Slot type name | Description | Slot resolution | Values (each entry on a separat
 `cafeCreamerType` | | default | `two percent` <br/> `skim milk` <br/> `soy` <br/> `almond` <br/> `whole` <br/> `skim` <br/> `half and half`
 `cafeBeverageTemp` | | default | `kids` <br/> `hot` <br/> `iced`
 
-### 4. Add Slots to the Intent
+### 4. Add slots to the intent
 Under the 'Slots' section of your CoffeeBot, add the following entries to the list of Slots by choosing the Slot type from the drop down selection, entering a 'Name' and completing the 'Prompt'.  Click the `+` button to add the Slot to the Intent.
 
 Note: You will not see the 'Required' field until you have added the Slot.
@@ -69,7 +74,8 @@ Required | Name            | Slot type | Prompt
  &nbsp;| `Creamer` | `cafeCreamerType` | `What kind of milk or creamer?`
  &nbsp;| `BeverageTemp` | `cafeBeverageTemp` | `Would you like that iced or hot?`
 
-### 5. Set the Confirmation prompt
+### 5. Set the confirmation prompt
+
 Expand the 'Confirmation prompt' section and check the box for 'Confirmation prompt'.  Add the following confirmation prompts:
 
 Confirmation type | Description
@@ -77,11 +83,13 @@ Confirmation type | Description
 Confirm | You'd like me to order a `{BeverageSize}` `{BeverageType}`. Is that right?
 Cancel | Okay. Nothing to order this time. See you next time!
 
-### 6. Fulfillment
-choose "Return parameters to client" for now
+### 6. Define fulfillment
 
-### 7. Response
-Expand the 'Response' section and select 'Add Message' to add the following closing message to the intent.
+Under the `Fulfillment` section, choose `Return parameters to client` for simple testing.  This setting will change later.
+
+### 7. Define responses
+
+Expand the `Response` section and select `Add Message` to add the following closing message to the intent.
 
 Response message |
 -------
@@ -95,7 +103,7 @@ OK. Thank you. Have a great day! |
 
 Click the 'Save Intent' button at the bottom of the page.
 
-### 8. Review the Error Handling settings
+### 8. Review the error handling settings
 After saving the Intent, select 'Error Handling' from the left-hand side menu.  Make sure the `Clarification prompt` and `Hang-up phrase` are both present and that the 'Maximum number of retries' is set to `2`.
 
 Error Handling Prompt | Message
@@ -106,14 +114,14 @@ Hang-up phrase | Sorry, I could not understand. Goodbye.
 
 Click 'Save' when you have confirmed your settings match those above.
 
-### 6. Build and test the Bot
+### 6. Build and test the bot
 Build the chatbot by clicking the `Build` button at the top right of the console. Once the build is complete, you'll be able to test the bot with the utterances you've entered above.  The 'Test bot' panel on the right-hand side will allow you to chat with your bot in the 'Chat with your bot...' entry box.
 
 For example, if you say `May I have a chai?`, does Lex correctly map `chai` to the `BeverageType` slot?
 
 ## Create a Lambda function
 
-To handle more complex logic, we can link our chat bot to a Lambda function to process the user's interaction.
+To handle more complex logic, we can link our chat bot to a Lambda function to process the user's interaction with the bot and create action based responses.
 
 ### Create the function
 
