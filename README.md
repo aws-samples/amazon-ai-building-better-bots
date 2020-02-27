@@ -1,11 +1,9 @@
-# amazon-ai-building-better-bots
-Code samples related to [Building Better Bots](https://aws.amazon.com/blogs/ai/building-better-bots-part-2/) published on the AWS ML Blog
-
 # CoffeeBot Chat Bot
 
-CoffeeBot is a transactional chat bot that can help you order a coffee.
+CoffeeBot is a transactional chat bot that can help you order a coffee.  
 
-Consider this conversation:
+This tutorial will help you build CoffeeBot using Amazon Lex and Lambda so you can have a conversation like the following:
+
 > User:  May I have a mocha? <br/>
 > CoffeeBot:  What size?  small, medium, large? <br/>
 > User:  small <br/>
@@ -18,6 +16,14 @@ Consider this conversation:
 > CoffeeBot:  Great! Your mocha will be available for pickup soon. Thanks for using CoffeeBot!
 
 ## Building an Amazon Lex chat bot
+
+To build our chat bot, we're going to utilize several new constructs including `intents`, `utterances`, `fulfillment` and `slots`.  Each of these constructs serve a different purpose in allowing Lex to understand how to interact with a user.
+
+The following diagram provides an overview of the main components and how Amazon Lex utilizes them:
+
+<div style="text-align:center"><img src="Diagrams_lex_bookhotel.26784edb7206413e2046d5a00b411589d56a6621.png" /></div>
+
+Now that we're aware of the components of an Amazon Lex chat bot, lets build one!
 
 ### 1. Create the bot
 
@@ -186,3 +192,7 @@ Create a Mobile Application using Amplify. AWS Amplify is a development platform
 ## AWS Amplify
 
 When you're ready, try out [AWS Amplify](https://aws-amplify.github.io/docs/js/interactions) for bringing your chatbot to a mobile or web environment.
+
+# amazon-ai-building-better-bots
+
+Code samples related to [Building Better Bots](https://aws.amazon.com/blogs/ai/building-better-bots-part-2/) published on the AWS ML Blog.
