@@ -97,15 +97,19 @@ Under the `Fulfillment` section, choose `Return parameters to client` for simple
 
 Expand the `Response` section and select `Add Message` to add the following closing message to the intent.
 
-Response message |
+#### Response message
 -------
-Thank you. Your {BeverageType} has been ordered. |
+```
+Thank you. Your {BeverageType} has been ordered.
+```
 
 Click the `+` button to add the response.  Check the checkbox 'Wait for user reply' and enter the following message, clicking the `+` when you are finished:
 
-Wait for user reply message |
+#### Wait for user reply message
 -------
-OK. Thank you. Have a great day! |
+```
+OK. Thank you. Have a great day!
+```
 
 Click the 'Save Intent' button at the bottom of the page.
 
