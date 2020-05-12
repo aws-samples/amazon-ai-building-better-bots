@@ -1,4 +1,8 @@
-# CoffeeBot Chat Bot
+# amazon-ai-building-better-bots
+
+Code samples related to [Building Better Bots](https://aws.amazon.com/blogs/ai/building-better-bots-part-2/) published on the AWS ML Blog.
+
+# CoffeeBot chat bot
 
 CoffeeBot is a transactional chat bot that can help you order a coffee.  
 
@@ -98,7 +102,6 @@ Under the `Fulfillment` section, choose `Return parameters to client` for simple
 Expand the `Response` section and select `Add Message` to add the following closing message to the intent.
 
 #### Response message
--------
 ```
 Thank you. Your {BeverageType} has been ordered.
 ```
@@ -106,7 +109,6 @@ Thank you. Your {BeverageType} has been ordered.
 Click the `+` button to add the response.  Check the checkbox 'Wait for user reply' and enter the following message, clicking the `+` when you are finished:
 
 #### Wait for user reply message
--------
 ```
 OK. Thank you. Have a great day!
 ```
@@ -124,7 +126,7 @@ Hang-up phrase | Sorry, I could not understand. Goodbye.
 
 Click 'Save' when you have confirmed your settings match those above.
 
-### 6. Build and test the bot
+### 9. Build and test the bot
 Build the chatbot by clicking the `Build` button at the top right of the console. Once the build is complete, you'll be able to test the bot with the utterances you've entered above.  The 'Test bot' panel on the right-hand side will allow you to chat with your bot in the 'Chat with your bot...' entry box.
 
 For example, if you say `May I have a chai?`, does Lex correctly map `chai` to the `BeverageType` slot?
@@ -176,27 +178,9 @@ For example, ask the bot for a coffee:
 
 Notice that the bot responds differently.  It is now referencing the logic in the Lambda function to validate the input and respond back accordingly.
 
-## Android App (Optional)
-
-Let's build this voice bot, an Android App that talks to you using Amazon Polly and Amazon Lex.
-You can use the AWS Console for your account to start testing the bot, but you can also build a mobile app using:
-
-- Android development environment ([download](https://developer.android.com/sdk))
-- To test voice (you can use the Android Emulator for text)
-  - An Android device
-  - A USB cable for USB debugging ([more info for Amazon Emulators](https://developer.android.com/studio/run/emulator))
-- You can also use the AWS ([Device Farm](https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html)): Device Farm is an app testing service that you can use to test and interact with your Android, iOS, and web apps on real, physical phones and tablets that are hosted by Amazon Web Services (AWS).
-
-For simplicity, we shall stick with the Android Emulator App (If we ever get to this optional part).
-
-First, follow the instructions to create the Amazon Lex bot.  Then, we'll put it all together with Amplify and the Lex Android SDK (Optional).
-
-Create a Mobile Application using Amplify. AWS Amplify is a development platform for building secure, scalable mobile and web applications. It makes it easy for you to authenticate users, securely store data and user metadata, authorize selective access to data, integrate machine learning, analyze application metrics, and execute server-side code. Sign into the AWS Amplify console to get started.
+## Errors
+If you have this error: "The checksum value doesn't match for the resource named..." then a page refresh is required - the build should work as normal after this.
 
 ## AWS Amplify
 
 When you're ready, try out [AWS Amplify](https://aws-amplify.github.io/docs/js/interactions) for bringing your chatbot to a mobile or web environment.
-
-# amazon-ai-building-better-bots
-
-Code samples related to [Building Better Bots](https://aws.amazon.com/blogs/ai/building-better-bots-part-2/) published on the AWS ML Blog.
