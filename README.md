@@ -47,7 +47,7 @@ First, we'll create the Amazon Lex bot.  Then, we'll add some Lambda Functions t
 From the left, add a new Intent called `cafeOrderBeverageIntent` with the following settings and click "Save Intent" to save the Intent.  
 To work independently in a shared environment, use your initials in the Intent name (e.g., `cafeOrderBeverageIntentXXX`).
 
-	1.Sample Utterances: add these to the list of sample utterances so the bot recognizes similar phrases (each entry on a 		separate line)Lambda initialization and validation (leave unchecked)
+	1.Sample Utterances: add these to the list of sample utterances so the bot recognizes similar phrases (each entry on a 		separate line) Lambda initialization and validation (leave unchecked)
 	```
 	I would like a {BeverageSize} {BeverageType}
 	Can I get a {BeverageType}
@@ -76,7 +76,7 @@ Slot type name | Description | Values (each entry on a separate line)
 `cafeBeverageTemp` | | `kids`; `hot`; `iced`
 #### 4. Lambda initialization and validation (leave unchecked)
 #### 5. Add Slots to the Intent
-Add the following entries to the list of Slots, choosing the Slot Types created above.  Click "Save Intent".
+Add the following entries to the list of Slots, choosing the Slot Types created above.  Click "Add slot to intent".
 
 Required | Name            | Slot type | Prompt
 -------- | --------------- | --------- | -------------
@@ -100,7 +100,7 @@ Build the app by clicking the build button at the top right. To test the bot wit
   For example, if you say `May I have a chai?`, does Lex correctly map `chai` to the `BeverageType` slot?
 
 ## Lambda Function
-1. Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 8.10 function
+1. Go to "Services" at the top of the screen, and search for the AWS Lambda service (it's helpful to open the AWS Lambda console in another tab). Create the `cafeOrderCoffee` function by saving `cafeOrderCoffee_lambda.js` as a Node.js 12.x function
 	- To work independently in a shared environment, use your initials in the function name (e.g., `cafeOrderCoffeeXXX`)
     - You can get the function source [here](https://github.com/aws-samples/amazon-ai-building-better-bots/blob/master/src/index.js)
     - (No need to set up a trigger; you can accept default values for most of the configuration)
@@ -121,6 +121,10 @@ c. Build the bot
 d. Test using the Amazon Lex Console; do you see any responses when you ask `May I have a mocha?`
 
 ## Android App (Optional)
-Create a Mobile Application using Amplify. AWS Amplify is a development platform for building secure, scalable mobile and web applications. It makes it easy for you to authenticate users, securely store data and user metadata, authorize selective access to data, integrate machine learning, analyze application metrics, and execute server-side code. Sign into the AWS Amplify console to get started. 
+Create a Mobile Application using Amplify. AWS Amplify is a development platform for building secure, scalable mobile and web applications. It makes it easy for you to authenticate users, securely store data and user metadata, authorize selective access to data, integrate machine learning, analyze application metrics, and execute server-side code. Sign into the AWS Amplify console to get started.
+
 ## AWS Amplify
 When you're ready, try out [AWS Amplify](https://aws-amplify.github.io/docs/js/interactions) for bringing your chatbot to a mobile or web environment.
+
+## Errors
+If you have this error: "The checksum value doesn't match for the resource named..." then a page refresh is required - the build should work as normal after this.
