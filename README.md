@@ -142,7 +142,7 @@ To handle more complex logic, we can link our chat bot to a Lambda function to p
 1. Select `Author from scratch` under the `Create function` page.
 1. Set the following values under the `Basic information` section of the Lambda:
    1. 'Function name' = `cafeOrderCoffee`
-   2. 'Runtime' = `Node.js 12.x`
+   2. 'Runtime' = `Node.js 18.x`
 2. Under the `Permissions` header, expand the `Choose or create an execution role` section.
 3. Under the `Execution role` header, select `Create a new role with basic Lambda permissions`
 4. Click `Create function` at the bottom of the page to create the Lambda.
