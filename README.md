@@ -160,7 +160,7 @@ To handle more complex logic, we can link our chat bot to a Lambda function to p
 ## Update the bot to use the Lambda
 Now that we have processing logic in the Lambda, we'll associate the Lambda with the bot so that the code gets executed when we interact with CoffeeBot.
 
-1. Navigate to the `Amazon Lex` console adn select the `CoffeeBot` bot from the `Bots` list
+1. Navigate to the `Amazon Lex` console and select the `CoffeeBot` bot from the `Bots` list
 2. Make sure `Latest` is selected from the version drop down next to the `cafeOrderBeverageIntent`
 3. Expand the `Lamda initialization and validation` section and check the `Initialization and validation code hook` checkbox
 4. In the `Lambda function` drop down, select the `cafeOrderCoffee` Lambda function and leave the `Version or alias` as `Latest`
