@@ -162,7 +162,7 @@ Now that we have processing logic in the Lambda, we'll associate the Lambda with
 
 1. Navigate to the `Amazon Lex` console and select the `CoffeeBot` bot from the `Bots` list
 2. Make sure `Latest` is selected from the version drop down next to the `cafeOrderBeverageIntent`
-3. Expand the `Lamda initialization and validation` section and check the `Initialization and validation code hook` checkbox
+3. Expand the `Lambda initialization and validation` section and check the `Initialization and validation code hook` checkbox
 4. In the `Lambda function` drop down, select the `cafeOrderCoffee` Lambda function and leave the `Version or alias` as `Latest`
   1. If prompted, allow Amazon Lex to call your new function
 5. Expand the `Fulfillment` section and select the `AWS Lambda function` radio button
