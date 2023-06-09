@@ -142,7 +142,7 @@ To handle more complex logic, we can link our chat bot to a Lambda function to p
 1. Select `Author from scratch` under the `Create function` page.
 1. Set the following values under the `Basic information` section of the Lambda:
    1. 'Function name' = `cafeOrderCoffee`
-   2. 'Runtime' = `Node.js 12.x`
+   2. 'Runtime' = `Node.js 18.x`
 2. Under the `Permissions` header, expand the `Choose or create an execution role` section.
 3. Under the `Execution role` header, select `Create a new role with basic Lambda permissions`
 4. Click `Create function` at the bottom of the page to create the Lambda.
@@ -160,9 +160,9 @@ To handle more complex logic, we can link our chat bot to a Lambda function to p
 ## Update the bot to use the Lambda
 Now that we have processing logic in the Lambda, we'll associate the Lambda with the bot so that the code gets executed when we interact with CoffeeBot.
 
-1. Navigate to the `Amazon Lex` console adn select the `CoffeeBot` bot from the `Bots` list
+1. Navigate to the `Amazon Lex` console and select the `CoffeeBot` bot from the `Bots` list
 2. Make sure `Latest` is selected from the version drop down next to the `cafeOrderBeverageIntent`
-3. Expand the `Lamda initialization and validation` section and check the `Initialization and validation code hook` checkbox
+3. Expand the `Lambda initialization and validation` section and check the `Initialization and validation code hook` checkbox
 4. In the `Lambda function` drop down, select the `cafeOrderCoffee` Lambda function and leave the `Version or alias` as `Latest`
   1. If prompted, allow Amazon Lex to call your new function
 5. Expand the `Fulfillment` section and select the `AWS Lambda function` radio button
